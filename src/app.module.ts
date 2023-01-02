@@ -1,10 +1,10 @@
+import { TrackingService } from '@application/services/Tracking.service';
+import { TrackingController } from '@infrastructure/controller/Tracking.controller';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [TrackingController],
+  providers: [TrackingService],
 })
 export class AppModule {}
