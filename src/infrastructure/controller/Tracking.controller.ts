@@ -1,12 +1,13 @@
-import { TrackingService } from '@application/services/Tracking.service';
-import { Controller, Post } from '@nestjs/common';
+import { CreateTrackingDto } from '@application/client/dto/CreateTracking.dto';
+import { CreateTrackingService } from '@application/client/service/Tracking.service';
+import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller('tracking')
 export class TrackingController {
-  constructor(private readonly trackingService: TrackingService) {}
+  constructor(private readonly createTrackingService: CreateTrackingService) {}
 
   @Post('create')
-  public createTracking(): string {
-    return this.trackingService.createTracking();
+  public createTracking(@Body() dto: CreateTrackingDto): boolean {
+    return this.createTrackingService.run(dto);
   }
 }
