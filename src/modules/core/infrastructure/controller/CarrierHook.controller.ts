@@ -1,7 +1,7 @@
-import { DhlHookDto } from '@Core/application/carrier/dto/DhlHook.dto';
-import { GlsHookDto } from '@Core/application/carrier/dto/GlsHook.dto';
-import { DhlHookService } from '@Core/application/carrier/service/DhlHook.service';
-import { GlsHookService } from '@Core/application/carrier/service/GlsHook.service';
+import { DhlHookDto } from '@Core/application/carrier/dhl/dto/DhlHook.dto';
+import { DhlHookService } from '@Core/application/carrier/dhl/service/DhlHook.service';
+import { GlsHookDto } from '@Core/application/carrier/gls/dto/GlsHook.dto';
+import { GlsHookService } from '@Core/application/carrier/gls/service/GlsHook.service';
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller('carrier/hook')

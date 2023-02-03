@@ -1,4 +1,4 @@
-export class HookDataDto {
+export class DhlHookDataDto {
   trackingLink: string;
   rerouteLink: string;
   rawScan: string;

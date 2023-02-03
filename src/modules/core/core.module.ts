@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DhlHookService } from './application/carrier/service/DhlHook.service';
-import { GlsHookService } from './application/carrier/service/GlsHook.service';
+import { DhlHookService } from './application/carrier/dhl/service/DhlHook.service';
+import { GlsHookService } from './application/carrier/gls/service/GlsHook.service';
 import { CreateTrackingService } from './application/customer/service/CreateTracking.service';
 import { CarrierRepository } from './domain/repository/Carrier.repository';
 import { CarrierHookController } from './infrastructure/controller/CarrierHook.controller';

@@ -1,4 +1,4 @@
-export class HookReferencesDto {
+export class DhlHookReferencesDto {
   courier: string;
   trackingNumber: string;
   orderNo: string;
