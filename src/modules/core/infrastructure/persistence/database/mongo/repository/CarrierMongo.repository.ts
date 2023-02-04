@@ -1,8 +1,8 @@
 import { DhlTracking } from '@Core/domain/entity/DhlTracking';
 import { GlsTracking } from '@Core/domain/entity/GlsTracking';
 import { CarrierRepository } from '@Core/domain/repository/Carrier.repository';
+import { MongoRepository } from '@daghdha1/shared';
 import { Inject } from '@nestjs/common';
-import { MongoRepository } from '@Shared/mongo-custom-provider/MongoRepository';
 import { AppConstants } from 'app.constants';
 
 export class CarrierMongoRepository

@@ -1,9 +1,11 @@
 import { CoreModule } from '@Core/core.module';
+import {
+  convertEnvToBoolean,
+  MongoProvider,
+  MysqlProvider,
+  RedisProvider,
+} from '@daghdha1/shared';
 import { Global, Module } from '@nestjs/common';
-import { MongoProvider } from '@Shared/mongo-custom-provider/MongoProvider';
-import { MysqlProvider } from '@Shared/mysql-custom-provider/MysqlProvider';
-import { RedisProvider } from '@Shared/redis-custom-provider/RedisProvider';
-import { convertEnvToBoolean } from '@Shared/utils/ConvertEnvToBoolean';
 import { AppConstants } from 'app.constants';
 
 @Global()
