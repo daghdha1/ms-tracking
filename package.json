@@ -21,13 +21,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@daghdha1/shared": "github:daghdha1/shared#537a07eb",
+    "@daghdha1/shared": "^github:daghdha1/pkg-shared",
     "@nestjs/common": "^9.3.2",
     "@nestjs/core": "^9.3.2",
     "@nestjs/platform-fastify": "^9.3.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
+    "pkg-shared": "github:daghdha1/pkg-shared#master",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^4.1.2",
     "rxjs": "^7.8.0"
@@ -56,8 +57,7 @@
     "typescript": "^4.9.5"
   },
   "_moduleAliases": {
-    "@Core": "dist/modules/cored",
-    "@Shared": "dist/modules/_shared"
+    "@Core": "dist/modules/cored"
   },
   "jest": {
     "moduleFileExtensions": [
