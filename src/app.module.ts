@@ -1,12 +1,12 @@
 import { CoreModule } from '@Core/core.module';
+import { Global, Module } from '@nestjs/common';
+import { AppConstants } from 'app.constants';
 import {
   convertEnvToBoolean,
   MongoProvider,
   MysqlProvider,
   RedisProvider,
-} from '@daghdha1/shared';
-import { Global, Module } from '@nestjs/common';
-import { AppConstants } from 'app.constants';
+} from 'pkg-shared';
 
 @Global()
 @Module({

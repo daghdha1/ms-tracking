@@ -21,7 +21,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@daghdha1/shared": "^github:daghdha1/pkg-shared",
     "@nestjs/common": "^9.3.2",
     "@nestjs/core": "^9.3.2",
     "@nestjs/platform-fastify": "^9.3.2",
