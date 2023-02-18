@@ -1,11 +1,11 @@
-import { DhlHookDto } from '@Core/application/carrier/dhl/dto/DhlHook.dto';
-import { DhlHookService } from '@Core/application/carrier/dhl/service/DhlHook.service';
-import { GlsHookDto } from '@Core/application/carrier/gls/dto/GlsHook.dto';
-import { GlsHookService } from '@Core/application/carrier/gls/service/GlsHook.service';
+import { DhlHookDto } from '@Carrier/application/dhl/dto/DhlHook.dto';
+import { DhlHookService } from '@Carrier/application/dhl/service/DhlHook.service';
+import { GlsHookDto } from '@Carrier/application/gls/dto/GlsHook.dto';
+import { GlsHookService } from '@Carrier/application/gls/service/GlsHook.service';
 import { Body, Controller, Post } from '@nestjs/common';
 
-@Controller('carrier/hook')
-export class CarrierHookController {
+@Controller('tracking/carrier/hook')
+export class TrackingCarrierHookController {
   constructor(
     private readonly glsHookService: GlsHookService,
     private readonly dhlHookService: DhlHookService,

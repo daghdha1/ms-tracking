@@ -4,25 +4,25 @@ export class CreateTrackingDto {
   @IsString()
   courier: any;
   @IsString()
-  trackingNumber: string;
+  trackingNumber?: string;
   @IsString()
-  zipCode: string;
+  zipCode?: string;
   @IsOptional()
   destinationCountryIso3?: any;
   @IsArray()
-  notificationPlatform: string[];
+  notificationPlatform?: string[];
   @IsString()
-  recipientNotification: string;
+  recipientNotification?: string;
   @IsString()
-  recipient: string;
+  recipient?: string;
   @IsString()
-  email: string;
+  email?: string;
   @IsString()
-  street: string;
+  street?: string;
   @IsString()
-  city: string;
+  city?: string;
   @IsString()
-  phone: string;
+  phone?: string;
   @IsOptional()
   languageIso3?: any;
 }

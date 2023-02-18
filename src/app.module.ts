@@ -1,6 +1,7 @@
+import { CarrierModule } from '@Carrier/carrier.module';
 import { CoreModule } from '@Core/core.module';
 import { Global, Module } from '@nestjs/common';
-import { AppConstants } from 'app.constants';
+import { MONGO, MYSQL, REDIS } from 'app.constants';
 import {
   convertEnvToBoolean,
   MongoProvider,
@@ -10,15 +11,15 @@ import {
 
 @Global()
 @Module({
-  imports: [CoreModule],
+  imports: [CoreModule, CarrierModule],
   controllers: [],
   providers: [
     {
-      provide: AppConstants.MYSQL_POOL,
+      provide: MYSQL,
       useFactory: async () => {
         if (!convertEnvToBoolean(process.env.MYSQL_ACTIVE)) return null;
         return MysqlProvider({
-          name: AppConstants.MYSQL_POOL,
+          name: MYSQL.toString(),
           host: process.env.MYSQL_HOST,
           port: Number(process.env.MYSQL_PORT),
           database: process.env.MYSQL_DATABASE,
@@ -30,11 +31,11 @@ import {
       },
     },
     {
-      provide: AppConstants.MONGO_POOL,
+      provide: MONGO,
       useFactory: async () => {
         if (!convertEnvToBoolean(process.env.MONGO_ACTIVE)) return null;
         return MongoProvider({
-          name: AppConstants.MONGO_POOL,
+          name: MONGO.toString(),
           host: process.env.MONGO_HOST,
           port: Number(process.env.MONGO_PORT),
           database: process.env.MONGO_DATABASE,
@@ -46,17 +47,13 @@ import {
       },
     },
     {
-      provide: AppConstants.REDIS_POOL,
+      provide: REDIS,
       useFactory: async () => {
         if (!convertEnvToBoolean(process.env.REDIS_ACTIVE)) return null;
         return RedisProvider();
       },
     },
   ],
-  exports: [
-    AppConstants.MYSQL_POOL,
-    AppConstants.MONGO_POOL,
-    AppConstants.REDIS_POOL,
-  ],
+  exports: [MYSQL, MONGO, REDIS],
 })
 export class AppModule {}

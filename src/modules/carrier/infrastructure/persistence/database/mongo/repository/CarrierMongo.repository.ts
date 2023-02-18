@@ -1,16 +1,16 @@
 import { DhlTracking } from '@Core/domain/entity/DhlTracking';
 import { GlsTracking } from '@Core/domain/entity/GlsTracking';
-import { CarrierRepository } from '@Core/domain/repository/Carrier.repository';
 import { Inject } from '@nestjs/common';
-import { AppConstants } from 'app.constants';
 import { MongoRepository } from 'pkg-shared';
+import { MYSQL } from 'app.constants';
+import { CarrierRepository } from '@Carrier/domain/repository/Carrier.repository';
 
 export class CarrierMongoRepository
   extends MongoRepository
   implements CarrierRepository
 {
   constructor(
-    @Inject(AppConstants.MYSQL_POOL)
+    @Inject(MYSQL)
     protected pool: any,
   ) {
     super(pool, { debug: false });

@@ -1,13 +1,17 @@
-import { CreateTrackingDto } from '@Core/application/customer/dto/CreateTracking.dto';
-import { CreateTrackingService } from '@Core/application/customer/service/CreateTracking.service';
+import { CreateTrackingDto } from '@Core/application/dto/CreateTracking.dto';
+import { CreateTrackingService } from '@Core/application/service/CreateTracking.service';
 import { Body, Controller, Post } from '@nestjs/common';
+import { BaseHttpResponse } from 'pkg-shared';
 
 @Controller('tracking')
-export class TrackingController {
-  constructor(private readonly createTrackingService: CreateTrackingService) {}
+export class TrackingController extends BaseHttpResponse {
+  constructor(private readonly createTrackingService: CreateTrackingService) {
+    super();
+  }
 
   @Post('create')
-  public createTracking(@Body() dto: CreateTrackingDto): boolean {
-    return this.createTrackingService.run(dto);
+  public async createTracking(@Body() dto: CreateTrackingDto): Promise<any> {
+    const response = this.createTrackingService.run(dto);
+    return this.success(response);
   }
 }

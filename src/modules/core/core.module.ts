@@ -1,22 +1,17 @@
 import { Module } from '@nestjs/common';
-import { DhlHookService } from './application/carrier/dhl/service/DhlHook.service';
-import { GlsHookService } from './application/carrier/gls/service/GlsHook.service';
-import { CreateTrackingService } from './application/customer/service/CreateTracking.service';
-import { CarrierRepository } from './domain/repository/Carrier.repository';
-import { CarrierHookController } from './infrastructure/controller/CarrierHook.controller';
+import { CreateTrackingService } from './application/service/CreateTracking.service';
+import { CoreRepository } from './domain/repository/Core.repository';
 import { TrackingController } from './infrastructure/controller/Tracking.controller';
-import { CarrierMongoRepository } from './infrastructure/persistence/database/mongo/repository/CarrierMongo.repository';
+import { CoreMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreMongo.repository';
 
 @Module({
   imports: [],
-  controllers: [CarrierHookController, TrackingController],
+  controllers: [TrackingController],
   providers: [
     CreateTrackingService,
-    GlsHookService,
-    DhlHookService,
     {
-      provide: CarrierRepository,
-      useClass: CarrierMongoRepository,
+      provide: CoreRepository,
+      useClass: CoreMongoRepository,
     },
   ],
   exports: [],
