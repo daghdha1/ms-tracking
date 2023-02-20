@@ -1,4 +1,4 @@
 export type CarrierSyncGlsTrackingType = {
-  tracking_number: string;
+  trackingNumber: string;
   service: string;
 };

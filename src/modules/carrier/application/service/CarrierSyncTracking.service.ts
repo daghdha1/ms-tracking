@@ -14,17 +14,12 @@ export class CarrierSyncTrackingService {
     let track: DhlTracking | GlsTracking = null;
     switch (dto.courier) {
       case 'DHL':
-        // Convert to entity
         track = DhlTracking.create(dto);
         await this.syncRepo.syncDhlTracking(track);
-        console.log(track);
-        // Call dhl repository
         break;
       case 'GLS':
-        // Convert to entity
         track = GlsTracking.create(dto);
-        console.log(track);
-        // Call gls repository
+        await this.syncRepo.syncGlsTracking(track);
         break;
       default:
         throw new CarrierException('Invalid Request', null, null, 400);

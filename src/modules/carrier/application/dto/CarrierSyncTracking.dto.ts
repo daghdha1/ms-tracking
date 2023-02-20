@@ -4,7 +4,7 @@ export class CarrierSyncTrackingDto {
   @IsString()
   courier: string;
   @IsString()
-  tracking_number: string;
+  trackingNumber: string;
   @IsString()
   service: string;
 }

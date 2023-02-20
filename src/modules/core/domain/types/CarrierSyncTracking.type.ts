@@ -1,5 +1,5 @@
 export type CarrierSyncTrackingType = {
   courier: string;
-  tracking_number: string;
+  trackingNumber: string;
   service: string;
 };

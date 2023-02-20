@@ -7,7 +7,7 @@ export class GlsTracking {
 
   public static create(data: CarrierSyncGlsTrackingType): GlsTracking {
     return partialAssign(new this(), {
-      tracking_number: data.tracking_number,
+      tracking_number: data.trackingNumber,
       service: data.service,
     });
   }

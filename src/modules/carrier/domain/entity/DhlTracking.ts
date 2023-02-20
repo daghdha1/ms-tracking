@@ -7,7 +7,7 @@ export class DhlTracking {
 
   public static create(data: CarrierSyncDhlTrackingType): DhlTracking {
     return partialAssign(new this(), {
-      tracking_number: data.tracking_number,
+      tracking_number: data.trackingNumber,
       service: data.service,
     });
   }

@@ -34,7 +34,7 @@ export class CarrierSyncHttpRepository implements CarrierSyncRepository {
       method: 'post',
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer ${process.env.CARRIER_DHL_TOKEN}`,
+        Authorization: `Bearer ${process.env.CARRIER_GLS_TOKEN}`,
         contentType: 'application/json',
       },
     };

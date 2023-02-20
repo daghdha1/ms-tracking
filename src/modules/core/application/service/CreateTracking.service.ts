@@ -1,6 +1,8 @@
 import { CarrierSyncTrackingService } from '@Carrier/application/service/CarrierSyncTracking.service';
+import { Tracking } from '@Core/domain/entity/Tracking.entity';
 import { CoreException } from '@Core/domain/exception/Core.exception';
 import { CoreConfigRepository } from '@Core/domain/repository/CoreConfig.repository';
+import { CoreTrackingRepository } from '@Core/domain/repository/CoreTracking.repository';
 import { CarrierSyncTrackingType } from '@Core/domain/types/CarrierSyncTracking.type';
 import { Injectable } from '@nestjs/common';
 import { CreateTrackingDto } from '../dto/CreateTracking.dto';
@@ -9,26 +11,33 @@ import { CreateTrackingDto } from '../dto/CreateTracking.dto';
 export class CreateTrackingService {
   constructor(
     private readonly configRepo: CoreConfigRepository,
+    private readonly trackRepo: CoreTrackingRepository,
     private readonly syncTrackingService: CarrierSyncTrackingService,
   ) {}
 
   public async run(dto: CreateTrackingDto): Promise<boolean> {
-    //console.log(dto);
     const areValid: boolean = await this.areRequiredFieldsValid(dto);
     if (!areValid) throw new CoreException('Invalid Request', null, null, 400);
-    this.formatPayload(dto);
-    if (!(await this.configRepo.getConfig('CARRIER')).includes(dto.courier))
+
+    const tracking: Tracking = Tracking.create(dto);
+
+    const carrierIncluded = (
+      await this.configRepo.getConfig('CARRIER')
+    ).includes(tracking.courier);
+    if (!carrierIncluded)
       throw new CoreException('Invalid Request', null, null, 400);
 
     // Send tracking to CarrierModule
     const carrierTrack: CarrierSyncTrackingType = {
-      courier: dto.courier,
-      tracking_number: dto.tracking_number,
-      service: dto.service,
+      courier: tracking.courier,
+      trackingNumber: tracking.trackingNumber,
+      service: tracking.service,
     };
-    await this.syncTrackingService.run(carrierTrack);
 
-    // Save tracking into mongoDB
+    const isSynced: boolean = await this.syncTrackingService.run(carrierTrack);
+
+    // TODO: SEGUIR AQUÍ PARA GUARDAR EN BASE DE DATOS MONGO
+    await this.trackRepo.saveTracking(tracking);
 
     return true;
   }
@@ -52,11 +61,6 @@ export class CreateTrackingService {
       }
     }
     return true;
-  }
-
-  private formatPayload(payload: CreateTrackingDto) {
-    payload['courier'] = payload['courier'].toUpperCase();
-    //...
   }
 
   /* private async syncTrackApi(payload: any): Promise<any> {
