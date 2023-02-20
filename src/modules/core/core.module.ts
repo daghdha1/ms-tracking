@@ -1,16 +1,23 @@
+import { CarrierModule } from '@Carrier/carrier.module';
 import { Module } from '@nestjs/common';
 import { CreateTrackingService } from './application/service/CreateTracking.service';
-import { CoreRepository } from './domain/repository/Core.repository';
+import { CoreConfigRepository } from './domain/repository/CoreConfig.repository';
+import { CoreTrackingRepository } from './domain/repository/CoreTracking.repository';
 import { TrackingController } from './infrastructure/controller/Tracking.controller';
 import { CoreMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreMongo.repository';
+import { CoreMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreMysql.repository';
 
 @Module({
-  imports: [],
+  imports: [CarrierModule],
   controllers: [TrackingController],
   providers: [
     CreateTrackingService,
     {
-      provide: CoreRepository,
+      provide: CoreConfigRepository,
+      useClass: CoreMysqlRepository,
+    },
+    {
+      provide: CoreTrackingRepository,
       useClass: CoreMongoRepository,
     },
   ],

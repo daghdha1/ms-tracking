@@ -1,18 +1,20 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 
 export class CreateTrackingDto {
   @IsString()
-  courier: any;
+  courier: string;
   @IsString()
-  trackingNumber?: string;
+  tracking_number?: string;
   @IsString()
-  zipCode?: string;
-  @IsOptional()
-  destinationCountryIso3?: any;
+  service: string;
+  @IsString()
+  zip_code?: string;
+  @IsString()
+  orderNo: string;
   @IsArray()
-  notificationPlatform?: string[];
+  notification_platform?: string[];
   @IsString()
-  recipientNotification?: string;
+  recipient_notification?: string;
   @IsString()
   recipient?: string;
   @IsString()
@@ -22,7 +24,5 @@ export class CreateTrackingDto {
   @IsString()
   city?: string;
   @IsString()
-  phone?: string;
-  @IsOptional()
-  languageIso3?: any;
+  mobile?: string;
 }

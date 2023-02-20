@@ -1,17 +1,18 @@
-import { Inject } from '@nestjs/common';
-import { MongoRepository } from 'pkg-shared';
-import { MYSQL } from 'app.constants';
-import { CarrierSyncRepository } from '@Carrier/domain/repository/CarrierSync.repository';
 import { DhlTracking } from '@Carrier/domain/entity/DhlTracking';
 import { GlsTracking } from '@Carrier/domain/entity/GlsTracking';
+import { CarrierSyncRepository } from '@Carrier/domain/repository/CarrierSync.repository';
+import { Inject } from '@nestjs/common';
+import { MYSQL } from 'app.constants';
+import { MysqlRepository } from 'pkg-shared';
+import { Pool } from 'mysql2/promise';
 
-export class CarrierMongoRepository
-  extends MongoRepository
+export class CarrierMysqlRepository
+  extends MysqlRepository
   implements CarrierSyncRepository
 {
   constructor(
     @Inject(MYSQL)
-    protected pool: any,
+    protected pool: Pool,
   ) {
     super(pool, { debug: false });
   }

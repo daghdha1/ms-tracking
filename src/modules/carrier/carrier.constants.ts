@@ -1,4 +1,4 @@
-export const CoreConstants = {
-  MYSQL_CORE_CARRIER_TABLE: 'mod_core_carrier',
-  MYSQL_CORE_CUSTOMER_TABLE: 'mod_core_customer',
+export const CarrierConstants = {
+  MYSQL_CARRIER_DHL_TABLE: 'mod_carrier_dhl',
+  MYSQL_CARRIER_GLS_TABLE: 'mod_carrier_gls',
 };

@@ -5,7 +5,6 @@ import { DhlHookDto } from '../dto/DhlHook.dto';
 export class DhlHookService {
   public run(dto: DhlHookDto): boolean {
     // get, save, and send data to notification ms
-
     return true;
   }
 }
