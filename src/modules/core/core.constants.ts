@@ -1,3 +1,4 @@
 export const CoreConstants = {
-  MYSQL_CORE_TRACKS_TABLE: 'mod_core_tracks',
+  MONGO_CORE_TRACKING_DB: 'ms-tracking',
+  MONGO_CORE_TRACKING_COL: 'trackings',
 };
