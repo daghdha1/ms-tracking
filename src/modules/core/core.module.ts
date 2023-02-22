@@ -1,24 +1,24 @@
 import { CarrierModule } from '@Carrier/carrier.module';
 import { Module } from '@nestjs/common';
 import { CreateTrackingService } from './application/service/CreateTracking.service';
-import { CoreConfigRepository } from './domain/repository/CoreConfig.repository';
-import { CoreTrackingRepository } from './domain/repository/CoreTracking.repository';
-import { TrackingController } from './infrastructure/controller/Tracking.controller';
-import { CoreMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreMongo.repository';
-import { CoreMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreMysql.repository';
+import { CoreDbConfigRepository } from './domain/repository/CoreDbConfig.repository';
+import { CoreDbTrackingRepository } from './domain/repository/CoreDbTracking.repository';
+import { TrackingCoreController } from './infrastructure/controller/TrackingCore.controller';
+import { CoreDbMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreDbMongo.repository';
+import { CoreDbMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreDbMysql.repository';
 
 @Module({
   imports: [CarrierModule],
-  controllers: [TrackingController],
+  controllers: [TrackingCoreController],
   providers: [
     CreateTrackingService,
     {
-      provide: CoreConfigRepository,
-      useClass: CoreMysqlRepository,
+      provide: CoreDbConfigRepository,
+      useClass: CoreDbMysqlRepository,
     },
     {
-      provide: CoreTrackingRepository,
-      useClass: CoreMongoRepository,
+      provide: CoreDbTrackingRepository,
+      useClass: CoreDbMongoRepository,
     },
   ],
   exports: [],

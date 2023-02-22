@@ -1,6 +1,7 @@
 import { CarrierModule } from '@Carrier/carrier.module';
 import { CoreModule } from '@Core/core.module';
 import { Global, Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { MONGO, MYSQL, REDIS } from 'app.constants';
 import {
   convertEnvToBoolean,
@@ -11,7 +12,7 @@ import {
 
 @Global()
 @Module({
-  imports: [CoreModule, CarrierModule],
+  imports: [CoreModule, CarrierModule, ScheduleModule.forRoot()],
   controllers: [],
   providers: [
     {

@@ -1,3 +1,3 @@
-export abstract class CoreConfigRepository {
+export abstract class CoreDbConfigRepository {
   public abstract getConfig(key: string): Promise<string[]>;
 }

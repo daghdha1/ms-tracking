@@ -1,4 +1,4 @@
-import { DhlTracking } from '@Carrier/domain/entity/DhlTracking';
+import { DhlTracking } from '@Carrier/domain/entity/DhlTracking.entity';
 import { partialAssign } from 'pkg-shared';
 
 export class DhlTrackingModel {

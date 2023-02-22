@@ -14,21 +14,23 @@ export class Tracking {
   public email?: string;
   public street?: string;
   public city?: string;
+  public synced: boolean;
 
-  public static create(dto: CoreCreateTrackingType): Tracking {
+  public static create(data: CoreCreateTrackingType): Tracking {
     return partialAssign(new this(), {
-      courier: dto.courier.toUpperCase(),
-      trackingNumber: dto.tracking_number,
-      service: dto.service,
-      zipCode: dto.zip_code,
-      mobile: dto.mobile,
-      orderNo: dto.orderNo,
-      notificationPlatform: dto.notification_platform,
-      recipientNotification: dto.recipient_notification,
-      recipient: dto.recipient,
-      email: dto.email,
-      street: dto.street,
-      city: dto.city,
+      courier: data.courier.toUpperCase(),
+      trackingNumber: data.tracking_number,
+      service: data.service,
+      zipCode: data.zip_code,
+      mobile: data.mobile,
+      orderNo: data.orderNo,
+      notificationPlatform: data.notification_platform,
+      recipientNotification: data.recipient_notification,
+      recipient: data.recipient,
+      email: data.email,
+      street: data.street,
+      city: data.city,
+      synced: false,
     });
   }
 }

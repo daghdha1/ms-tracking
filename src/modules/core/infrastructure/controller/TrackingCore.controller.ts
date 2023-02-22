@@ -4,7 +4,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { BaseHttpResponse } from 'pkg-shared';
 
 @Controller('tracking')
-export class TrackingController extends BaseHttpResponse {
+export class TrackingCoreController extends BaseHttpResponse {
   constructor(private readonly createTrackingService: CreateTrackingService) {
     super();
   }

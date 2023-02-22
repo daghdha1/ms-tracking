@@ -1,4 +1,4 @@
-import { GlsTracking } from '@Carrier/domain/entity/GlsTracking';
+import { GlsTracking } from '@Carrier/domain/entity/GlsTracking.entity';
 import { partialAssign } from 'pkg-shared';
 
 export class GlsTrackingModel {

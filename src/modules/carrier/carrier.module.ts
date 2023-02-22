@@ -1,23 +1,29 @@
 import { Module } from '@nestjs/common';
-import { CarrierSyncTrackingService } from './application/service/CarrierSyncTracking.service';
-import { DhlHookService } from './application/service/DhlHook.service';
-import { GlsHookService } from './application/service/GlsHook.service';
-import { CarrierSyncRepository } from './domain/repository/CarrierSync.repository';
-import { TrackingCarrierHookController } from './infrastructure/controller/TrackingCarrierHook.controller';
-import { CarrierSyncHttpRepository } from './infrastructure/persistence/http/repository/CarrierSyncHttp.repository';
+import { CarrierApiSyncTrackingService } from './application/service/CarrierApiSyncTracking.service';
+import { CarrierDbRepository } from './domain/repository/CarrierDb.repository';
+import { CarrierApiRepository } from './domain/repository/CarrierApi.repository';
+import { TrackingCarrierEventController } from './infrastructure/controller/TrackingCarrierEvent.controller';
+import { CarrierDbMongoRepository } from './infrastructure/persistence/database/mongo/repository/CarrierDbMongo.repository';
+import { CarrierApiHttpRepository } from './infrastructure/persistence/http/repository/CarrierApiHttp.repository';
+import { CarrierDhlTrackingEventService } from './application/service/CarrierDhlTrackingEvent.service';
+import { CarrierGlsTrackingEventService } from './application/service/CarrierGlsTrackingEvent.service';
 
 @Module({
   imports: [],
-  controllers: [TrackingCarrierHookController],
+  controllers: [TrackingCarrierEventController],
   providers: [
-    CarrierSyncTrackingService,
-    DhlHookService,
-    GlsHookService,
+    CarrierApiSyncTrackingService,
+    CarrierDhlTrackingEventService,
+    CarrierGlsTrackingEventService,
     {
-      provide: CarrierSyncRepository,
-      useClass: CarrierSyncHttpRepository,
+      provide: CarrierDbRepository,
+      useClass: CarrierDbMongoRepository,
+    },
+    {
+      provide: CarrierApiRepository,
+      useClass: CarrierApiHttpRepository,
     },
   ],
-  exports: [CarrierSyncTrackingService],
+  exports: [CarrierApiSyncTrackingService],
 })
 export class CarrierModule {}

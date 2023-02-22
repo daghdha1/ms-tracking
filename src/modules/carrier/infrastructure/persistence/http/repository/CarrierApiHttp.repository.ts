@@ -1,12 +1,11 @@
-import { DhlTracking } from '@Carrier/domain/entity/DhlTracking';
-import { GlsTracking } from '@Carrier/domain/entity/GlsTracking';
-import { CarrierSyncRepository } from '@Carrier/domain/repository/CarrierSync.repository';
+import { DhlTracking } from '@Carrier/domain/entity/DhlTracking.entity';
+import { GlsTracking } from '@Carrier/domain/entity/GlsTracking.entity';
+import { CarrierApiRepository } from '@Carrier/domain/repository/CarrierApi.repository';
 import fetch from 'node-fetch';
 import { DhlTrackingModel } from '../model/DhlTracking.model';
-import { CarrierException } from '@Carrier/domain/exception/Carrier.exception';
 import { GlsTrackingModel } from '../model/GlsTracking.model';
 
-export class CarrierSyncHttpRepository implements CarrierSyncRepository {
+export class CarrierApiHttpRepository implements CarrierApiRepository {
   public async syncDhlTracking(tracking: DhlTracking): Promise<boolean> {
     const payload: DhlTrackingModel = DhlTrackingModel.fromEntity(tracking);
     const options = {
@@ -23,9 +22,7 @@ export class CarrierSyncHttpRepository implements CarrierSyncRepository {
         `trackingNumber=${tracking.tracking_number}&service=${tracking.service}`,
       );
     const response: any = await fetch(uri, options);
-    if (!response.OK)
-      throw new CarrierException('Internal server error', null, null, 500);
-    return true;
+    return response.OK && response.status >= 200 && response.status < 300;
   }
 
   public async syncGlsTracking(tracking: GlsTracking): Promise<boolean> {
@@ -44,8 +41,6 @@ export class CarrierSyncHttpRepository implements CarrierSyncRepository {
         `trackingNumber=${tracking.tracking_number}&service=${tracking.service}`,
       );
     const response: any = await fetch(uri, options);
-    if (!response.OK)
-      throw new CarrierException('Internal server error', null, null, 500);
-    return true;
+    return response.OK && response.status >= 200 && response.status < 300;
   }
 }

@@ -2,11 +2,11 @@ import { Inject } from '@nestjs/common';
 import { AppConstants, MYSQL } from 'app.constants';
 import { MysqlRepository, queryBuilder } from 'pkg-shared';
 import { Pool } from 'mysql2/promise';
-import { CoreConfigRepository } from '@Core/domain/repository/CoreConfig.repository';
+import { CoreDbConfigRepository } from '@Core/domain/repository/CoreDbConfig.repository';
 
-export class CoreMysqlRepository
+export class CoreDbMysqlRepository
   extends MysqlRepository
-  implements CoreConfigRepository
+  implements CoreDbConfigRepository
 {
   constructor(
     @Inject(MYSQL)

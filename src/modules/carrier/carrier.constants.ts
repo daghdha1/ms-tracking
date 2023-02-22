@@ -1,4 +1,5 @@
 export const CarrierConstants = {
-  MYSQL_CARRIER_DHL_TABLE: 'mod_carrier_dhl',
-  MYSQL_CARRIER_GLS_TABLE: 'mod_carrier_gls',
+  MONGO_TRACKING_CARRIER_DB: 'ms-tracking',
+  MONGO_TRACKING_CARRIER_DHL_COL: 'dhlTrackingEvents',
+  MONGO_TRACKING_CARRIER_GLS_COL: 'glsTrackingEvents',
 };
