@@ -2,7 +2,8 @@ import { CarrierModule } from '@Carrier/carrier.module';
 import { CoreModule } from '@Core/core.module';
 import { Global, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { MONGO, MYSQL, REDIS } from 'app.constants';
+import { Provider } from 'pkg-shared';
+
 import {
   convertEnvToBoolean,
   MongoProvider,
@@ -16,11 +17,11 @@ import {
   controllers: [],
   providers: [
     {
-      provide: MYSQL,
+      provide: Provider.MySQL,
       useFactory: async () => {
         if (!convertEnvToBoolean(process.env.MYSQL_ACTIVE)) return null;
         return MysqlProvider({
-          name: MYSQL.toString(),
+          name: Provider.MySQL.toString(),
           host: process.env.MYSQL_HOST,
           port: Number(process.env.MYSQL_PORT),
           database: process.env.MYSQL_DATABASE,
@@ -32,11 +33,11 @@ import {
       },
     },
     {
-      provide: MONGO,
+      provide: Provider.Mongo,
       useFactory: async () => {
         if (!convertEnvToBoolean(process.env.MONGO_ACTIVE)) return null;
         return MongoProvider({
-          name: MONGO.toString(),
+          name: Provider.Mongo.toString(),
           host: process.env.MONGO_HOST,
           port: Number(process.env.MONGO_PORT),
           database: process.env.MONGO_DATABASE,
@@ -48,13 +49,13 @@ import {
       },
     },
     {
-      provide: REDIS,
+      provide: Provider.Redis,
       useFactory: async () => {
         if (!convertEnvToBoolean(process.env.REDIS_ACTIVE)) return null;
         return RedisProvider();
       },
     },
   ],
-  exports: [MYSQL, MONGO, REDIS],
+  exports: [Provider.MySQL, Provider.Mongo, Provider.Redis],
 })
 export class AppModule {}

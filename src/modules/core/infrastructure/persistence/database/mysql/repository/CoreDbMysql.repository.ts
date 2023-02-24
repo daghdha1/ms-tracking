@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
-import { AppConstants, MYSQL } from 'app.constants';
-import { MysqlRepository, queryBuilder } from 'pkg-shared';
+import { AppConstants } from 'app.constants';
+import { MysqlRepository, queryBuilder, Provider } from 'pkg-shared';
 import { Pool } from 'mysql2/promise';
 import { CoreDbConfigRepository } from '@Core/domain/repository/CoreDbConfig.repository';
 
@@ -9,7 +9,7 @@ export class CoreDbMysqlRepository
   implements CoreDbConfigRepository
 {
   constructor(
-    @Inject(MYSQL)
+    @Inject(Provider.MySQL)
     protected pool: Pool,
   ) {
     super(pool, { debug: false });

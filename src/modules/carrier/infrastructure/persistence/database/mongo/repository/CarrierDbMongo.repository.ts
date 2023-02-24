@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { MongoRepository } from 'pkg-shared';
-import { MONGO } from 'app.constants';
+import { MongoRepository, Provider } from 'pkg-shared';
 import { MongoClient } from 'mongodb';
 import { CoreException } from '@Core/domain/exception/Core.exception';
 import { CarrierDbRepository } from '@Carrier/domain/repository/CarrierDb.repository';
@@ -13,7 +12,7 @@ export class CarrierDbMongoRepository
   implements CarrierDbRepository
 {
   constructor(
-    @Inject(MONGO)
+    @Inject(Provider.Mongo)
     protected pool: MongoClient,
   ) {
     super(pool, { debug: false });

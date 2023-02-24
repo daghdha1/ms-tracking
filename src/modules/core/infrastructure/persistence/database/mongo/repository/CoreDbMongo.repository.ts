@@ -1,7 +1,6 @@
 import { Inject } from '@nestjs/common';
-import { MongoRepository } from 'pkg-shared';
+import { MongoRepository, Provider } from 'pkg-shared';
 import { MongoClient } from 'mongodb';
-import { MONGO } from 'app.constants';
 import { Tracking } from '@Core/domain/entity/Tracking.entity';
 import { CoreException } from '@Core/domain/exception/Core.exception';
 import { CoreConstants } from '@Core/core.constants';
@@ -12,7 +11,7 @@ export class CoreDbMongoRepository
   implements CoreDbTrackingRepository
 {
   constructor(
-    @Inject(MONGO)
+    @Inject(Provider.Mongo)
     protected pool: MongoClient,
   ) {
     super(pool, { debug: false });

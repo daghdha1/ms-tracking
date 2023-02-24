@@ -8,6 +8,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app: INestApplication =
@@ -22,7 +23,21 @@ async function bootstrap() {
         },
       },
     );
-  global.getApp = () => app;
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: process.env.KAFKA_SERVER_ID,
+        brokers: [process.env.KAFKA_BROKERS],
+        logLevel: Number(process.env.KAFKA_LOG_LEVEL),
+      },
+      producerOnlyMode: true,
+      producer: {
+        allowAutoTopicCreation: false,
+      },
+    },
+  });
+  app.startAllMicroservices();
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.setGlobalPrefix(process.env.APP_GLOBAL_PREFIX);
   await app.listen(
