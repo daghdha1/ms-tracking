@@ -10,6 +10,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./src",
+    "rootDir": "src",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -18,9 +19,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@Carrier/*": ["modules/carrier/*"],
       "@Core/*": ["modules/core/*"]
     }
   },
-  "include": ["src", "test"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

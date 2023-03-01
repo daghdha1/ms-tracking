@@ -1,22 +1,24 @@
+import { CarrierModule } from '@Carrier/carrier.module';
 import { Module } from '@nestjs/common';
-import { DhlHookService } from './application/carrier/dhl/service/DhlHook.service';
-import { GlsHookService } from './application/carrier/gls/service/GlsHook.service';
-import { CreateTrackingService } from './application/customer/service/CreateTracking.service';
-import { CarrierRepository } from './domain/repository/Carrier.repository';
-import { CarrierHookController } from './infrastructure/controller/CarrierHook.controller';
-import { TrackingController } from './infrastructure/controller/Tracking.controller';
-import { CarrierMongoRepository } from './infrastructure/persistence/database/mongo/repository/CarrierMongo.repository';
+import { CreateTrackingService } from './application/service/CreateTracking.service';
+import { CoreDbConfigRepository } from './domain/repository/CoreDbConfig.repository';
+import { CoreDbTrackingRepository } from './domain/repository/CoreDbTracking.repository';
+import { TrackingCoreController } from './infrastructure/controller/TrackingCore.controller';
+import { CoreDbMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreDbMongo.repository';
+import { CoreDbMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreDbMysql.repository';
 
 @Module({
-  imports: [],
-  controllers: [CarrierHookController, TrackingController],
+  imports: [CarrierModule],
+  controllers: [TrackingCoreController],
   providers: [
     CreateTrackingService,
-    GlsHookService,
-    DhlHookService,
     {
-      provide: CarrierRepository,
-      useClass: CarrierMongoRepository,
+      provide: CoreDbConfigRepository,
+      useClass: CoreDbMysqlRepository,
+    },
+    {
+      provide: CoreDbTrackingRepository,
+      useClass: CoreDbMongoRepository,
     },
   ],
   exports: [],
