@@ -9,6 +9,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { convertEnvToBoolean, KafkaConstants } from 'pkg-shared';
 
 async function bootstrap() {
   const app: INestApplication =
@@ -23,21 +24,7 @@ async function bootstrap() {
         },
       },
     );
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        clientId: process.env.KAFKA_SERVER_ID,
-        brokers: [process.env.KAFKA_BROKERS],
-        logLevel: Number(process.env.KAFKA_LOG_LEVEL),
-      },
-      producerOnlyMode: true,
-      producer: {
-        allowAutoTopicCreation: false,
-      },
-    },
-  });
-  app.startAllMicroservices();
+  if (convertEnvToBoolean(process.env.KAFKA_ACTIVE)) await activeHybridApp(app);
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.setGlobalPrefix(process.env.APP_GLOBAL_PREFIX);
   await app.listen(
@@ -49,4 +36,24 @@ async function bootstrap() {
     `Server listening on ${process.env.APP_LISTEN_HOSTNAME}:${process.env.APP_LISTEN_PORT}`,
   );
 }
+
+async function activeHybridApp(app: INestApplication) {
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: KafkaConstants.kafkaProducerId,
+        brokers: KafkaConstants.brokers,
+        logLevel: KafkaConstants.logLevel,
+      },
+      producerOnlyMode: KafkaConstants.producerOnlyMode,
+      producer: {
+        allowAutoTopicCreation: KafkaConstants.allowAutoTopicCreation,
+      },
+    },
+  });
+  await app.startAllMicroservices();
+  console.log('\x1b[32m%s\x1b[0m', 'The Hybrid Kafka Instance is ready');
+}
+
 bootstrap();

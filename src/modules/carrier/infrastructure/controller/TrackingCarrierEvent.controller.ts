@@ -14,6 +14,7 @@ export class TrackingCarrierEventController extends BaseHttpResponse {
     super();
   }
 
+  // TODO: add guard with ip whitelist
   @Post('dhl')
   public async dhlTrackingEvent(
     @Body() dto: DhlTrackingEventDto,
@@ -22,6 +23,7 @@ export class TrackingCarrierEventController extends BaseHttpResponse {
     return this.success(response);
   }
 
+  // TODO: add guard with ip whitelist
   @Post('gls')
   public async glsTrackingEvent(
     @Body() dto: GlsTrackingEventDto,

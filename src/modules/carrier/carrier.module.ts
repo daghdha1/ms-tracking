@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { CarrierDbRepository } from './domain/repository/CarrierDb.repository';
 import { CarrierApiRepository } from './domain/repository/CarrierApi.repository';
 import { TrackingCarrierEventController } from './infrastructure/controller/TrackingCarrierEvent.controller';
@@ -6,26 +6,12 @@ import { CarrierDbMongoRepository } from './infrastructure/persistence/database/
 import { CarrierApiHttpRepository } from './infrastructure/persistence/http/repository/CarrierApiHttp.repository';
 import { CarrierDhlTrackingEventService } from './application/service/CarrierDhlTrackingEvent.service';
 import { CarrierGlsTrackingEventService } from './application/service/CarrierGlsTrackingEvent.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { Provider } from 'pkg-shared';
+import { convertEnvToBoolean, KafkaModule, Provider } from 'pkg-shared';
 import { CarrierApiSyncTrackingService } from './application/service/CarrierApiSyncTracking.service';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: Provider.Kafka,
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            clientId: process.env.KAFKA_CLIENT_ID,
-            brokers: [process.env.KAFKA_BROKERS],
-            logLevel: Number(process.env.KAFKA_LOG_LEVEL),
-          },
-        },
-      },
-    ]),
-  ],
+  imports: [KafkaModule],
   controllers: [TrackingCarrierEventController],
   providers: [
     CarrierApiSyncTrackingService,
@@ -42,4 +28,22 @@ import { CarrierApiSyncTrackingService } from './application/service/CarrierApiS
   ],
   exports: [CarrierApiSyncTrackingService],
 })
-export class CarrierModule {}
+export class CarrierModule implements OnApplicationBootstrap {
+  constructor(
+    @Inject(Provider.KafkaProducer) private readonly kafkaClient: ClientKafka,
+  ) {}
+
+  async onApplicationBootstrap() {
+    if (convertEnvToBoolean(process.env.KAFKA_ACTIVE)) {
+      console.log(
+        '\x1b[33m%s\x1b[0m',
+        `${Provider.KafkaProducer} client is connecting`,
+      );
+      await this.kafkaClient.connect();
+      console.log(
+        '\x1b[32m%s\x1b[0m',
+        `${Provider.KafkaProducer} client connected`,
+      );
+    }
+  }
+}
