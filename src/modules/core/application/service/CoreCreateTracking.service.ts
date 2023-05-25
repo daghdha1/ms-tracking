@@ -1,21 +1,22 @@
-import { CarrierApiSyncTrackingService } from '@Carrier/application/service/CarrierApiSyncTracking.service';
 import { Tracking } from '@Core/domain/entity/Tracking.entity';
 import { CoreException } from '@Core/domain/exception/Core.exception';
 import { CoreDbConfigRepository } from '@Core/domain/repository/CoreDbConfig.repository';
 import { CoreDbTrackingRepository } from '@Core/domain/repository/CoreDbTracking.repository';
 import { CarrierSyncTrackingType } from '@Core/domain/types/CarrierSyncTracking.type';
-import { Injectable } from '@nestjs/common';
-import { CreateTrackingDto } from '../dto/CreateTracking.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { CoreCreateTrackingDto } from '../dto/CoreCreateTracking.dto';
+import { ICarrierApiSyncTracking } from '@Carrier/infrastructure/interface/CarrierApiSyncTracking.interface';
 
 @Injectable()
-export class CreateTrackingService {
+export class CoreCreateTrackingService {
   constructor(
+    @Inject('API_SYNC_TRACKING')
+    private readonly apiSyncTrackService: ICarrierApiSyncTracking,
     private readonly dbConfigRepo: CoreDbConfigRepository,
     private readonly dbTrackRepo: CoreDbTrackingRepository,
-    private readonly apiSyncTrackingService: CarrierApiSyncTrackingService,
   ) {}
 
-  public async run(dto: CreateTrackingDto): Promise<void> {
+  public async run(dto: CoreCreateTrackingDto): Promise<void> {
     // Check tracking params
     const areValid: boolean = await this.areRequiredFieldsValid(dto);
     if (!areValid) throw new CoreException('Invalid Request', null, null, 400);
@@ -36,9 +37,7 @@ export class CreateTrackingService {
       trackingNumber: tracking.trackingNumber,
       service: tracking.service,
     };
-    const isSynced: boolean = await this.apiSyncTrackingService.run(
-      carrierTrack,
-    );
+    const isSynced: boolean = await this.apiSyncTrackService.run(carrierTrack);
 
     // Save tracking
     if (isSynced) tracking.synced = true;
@@ -46,7 +45,7 @@ export class CreateTrackingService {
   }
 
   private async areRequiredFieldsValid(
-    payload: CreateTrackingDto,
+    payload: CoreCreateTrackingDto,
   ): Promise<boolean> {
     const requiredFields: string[] = [
       'courier',

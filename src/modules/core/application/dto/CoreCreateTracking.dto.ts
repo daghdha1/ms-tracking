@@ -1,6 +1,6 @@
 import { IsArray, IsOptional, IsString } from 'class-validator';
 
-export class CreateTrackingDto {
+export class CoreCreateTrackingDto {
   @IsString()
   courier: string;
   @IsString()
@@ -9,8 +9,6 @@ export class CreateTrackingDto {
   service: string;
   @IsString()
   zip_code: string;
-  @IsString()
-  mobile: string;
   @IsOptional()
   @IsString()
   orderNo?: string;
@@ -23,6 +21,8 @@ export class CreateTrackingDto {
   @IsOptional()
   @IsString()
   recipient?: string;
+  @IsString()
+  phone: string;
   @IsOptional()
   @IsString()
   email?: string;

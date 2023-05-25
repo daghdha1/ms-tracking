@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class CarrierSyncTrackingDto {
+export class CarrierApiSyncTrackingDto {
   @IsString()
   courier: string;
   @IsString()

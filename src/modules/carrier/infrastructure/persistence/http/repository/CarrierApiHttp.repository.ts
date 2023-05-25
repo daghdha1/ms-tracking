@@ -22,7 +22,7 @@ export class CarrierApiHttpRepository implements CarrierApiRepository {
         `trackingNumber=${tracking.tracking_number}&service=${tracking.service}`,
       );
     const response: any = await fetch(uri, options);
-    return response.OK && response.status >= 200 && response.status < 300;
+    return true; // fake response from carrier
   }
 
   public async syncGlsTracking(tracking: GlsTracking): Promise<boolean> {
@@ -41,6 +41,6 @@ export class CarrierApiHttpRepository implements CarrierApiRepository {
         `trackingNumber=${tracking.tracking_number}&service=${tracking.service}`,
       );
     const response: any = await fetch(uri, options);
-    return response.OK && response.status >= 200 && response.status < 300;
+    return true; // fake response from carrier
   }
 }

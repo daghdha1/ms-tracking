@@ -3,11 +3,11 @@ export type CoreCreateTrackingType = {
   tracking_number: string;
   service: string;
   zip_code: string;
-  mobile: string;
   orderNo?: string;
   notification_platform?: string[];
   recipient_notification?: string;
   recipient?: string;
+  phone: string;
   email?: string;
   street?: string;
   city?: string;

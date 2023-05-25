@@ -5,7 +5,7 @@ import { CarrierGlsTrackingEventService } from '@Carrier/application/service/Car
 import { Body, Controller, Post } from '@nestjs/common';
 import { BaseHttpResponse } from 'pkg-shared';
 
-@Controller('tracking/carrier/webhook')
+@Controller('carrier/webhook')
 export class TrackingCarrierEventController extends BaseHttpResponse {
   constructor(
     private readonly glsTrackingEventService: CarrierGlsTrackingEventService,
@@ -14,7 +14,6 @@ export class TrackingCarrierEventController extends BaseHttpResponse {
     super();
   }
 
-  // TODO: add guard with ip whitelist
   @Post('dhl')
   public async dhlTrackingEvent(
     @Body() dto: DhlTrackingEventDto,
@@ -23,7 +22,6 @@ export class TrackingCarrierEventController extends BaseHttpResponse {
     return this.success(response);
   }
 
-  // TODO: add guard with ip whitelist
   @Post('gls')
   public async glsTrackingEvent(
     @Body() dto: GlsTrackingEventDto,

@@ -1,4 +1,4 @@
-import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { Inject, Module, OnModuleInit, forwardRef } from '@nestjs/common';
 import { CarrierDbRepository } from './domain/repository/CarrierDb.repository';
 import { CarrierApiRepository } from './domain/repository/CarrierApi.repository';
 import { TrackingCarrierEventController } from './infrastructure/controller/TrackingCarrierEvent.controller';
@@ -9,9 +9,10 @@ import { CarrierGlsTrackingEventService } from './application/service/CarrierGls
 import { convertEnvToBoolean, KafkaModule, Provider } from 'pkg-shared';
 import { CarrierApiSyncTrackingService } from './application/service/CarrierApiSyncTracking.service';
 import { ClientKafka } from '@nestjs/microservices';
+import { CoreModule } from '@Core/core.module';
 
 @Module({
-  imports: [KafkaModule],
+  imports: [forwardRef(() => CoreModule), KafkaModule],
   controllers: [TrackingCarrierEventController],
   providers: [
     CarrierApiSyncTrackingService,
@@ -25,15 +26,19 @@ import { ClientKafka } from '@nestjs/microservices';
       provide: CarrierApiRepository,
       useClass: CarrierApiHttpRepository,
     },
+    {
+      provide: 'API_SYNC_TRACKING',
+      useClass: CarrierApiSyncTrackingService,
+    },
   ],
-  exports: [CarrierApiSyncTrackingService],
+  exports: ['API_SYNC_TRACKING'],
 })
-export class CarrierModule implements OnApplicationBootstrap {
+export class CarrierModule implements OnModuleInit {
   constructor(
     @Inject(Provider.KafkaProducer) private readonly kafkaClient: ClientKafka,
   ) {}
 
-  async onApplicationBootstrap() {
+  async onModuleInit() {
     if (convertEnvToBoolean(process.env.KAFKA_ACTIVE)) {
       console.log(
         '\x1b[33m%s\x1b[0m',

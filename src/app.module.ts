@@ -3,7 +3,6 @@ import { CoreModule } from '@Core/core.module';
 import { Global, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { Provider } from 'pkg-shared';
-
 import {
   convertEnvToBoolean,
   MongoProvider,
