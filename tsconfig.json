@@ -6,12 +6,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2021",
+    "allowJs": true,
+    "target": "esNext",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "src",
+    "baseUrl": "./",
+    "rootDir": "./",
     "incremental": true,
+    "noEmit": false,
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
@@ -19,10 +21,9 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@Carrier/*": ["modules/carrier/*"],
-      "@Core/*": ["modules/core/*"]
+      "@Carrier/*": ["src/modules/carrier/*"],
+      "@Core/*": ["src/modules/core/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src", "test"]
 }

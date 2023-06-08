@@ -1,12 +1,12 @@
-import { CarrierModule } from '@Carrier/carrier.module';
-import { Module, forwardRef } from '@nestjs/common';
-import { CoreDbConfigRepository } from './domain/repository/CoreDbConfig.repository';
-import { CoreDbTrackingRepository } from './domain/repository/CoreDbTracking.repository';
-import { CoreTrackingController } from './infrastructure/controller/CoreTracking.controller';
-import { CoreDbMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreDbMongo.repository';
-import { CoreDbMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreDbMysql.repository';
-import { CoreCreateTrackingService } from './application/service/CoreCreateTracking.service';
-import { CoreGetTrackingService } from './application/service/CoreGetTracking.service';
+import { CarrierModule } from '@Carrier/carrier.module'
+import { Module, forwardRef } from '@nestjs/common'
+import { CoreDbConfigRepository } from './domain/repository/CoreDbConfig.repository'
+import { CoreDbTrackingRepository } from './domain/repository/CoreDbTracking.repository'
+import { CoreTrackingController } from './infrastructure/controller/CoreTracking.controller'
+import { CoreDbMongoRepository } from './infrastructure/persistence/database/mongo/repository/CoreDbMongo.repository'
+import { CoreDbMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreDbMysql.repository'
+import { CoreCreateTrackingService } from './application/service/CoreCreateTracking.service'
+import { CoreGetTrackingService } from './application/service/CoreGetTracking.service'
 
 @Module({
   imports: [forwardRef(() => CarrierModule)],
@@ -15,17 +15,17 @@ import { CoreGetTrackingService } from './application/service/CoreGetTracking.se
     CoreCreateTrackingService,
     {
       provide: CoreDbConfigRepository,
-      useClass: CoreDbMysqlRepository,
+      useClass: CoreDbMysqlRepository
     },
     {
       provide: CoreDbTrackingRepository,
-      useClass: CoreDbMongoRepository,
+      useClass: CoreDbMongoRepository
     },
     {
       provide: 'GET_TRACKING',
-      useClass: CoreGetTrackingService,
-    },
+      useClass: CoreGetTrackingService
+    }
   ],
-  exports: ['GET_TRACKING'],
+  exports: ['GET_TRACKING']
 })
 export class CoreModule {}

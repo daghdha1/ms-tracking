@@ -1,22 +1,21 @@
-import { Tracking } from '@Core/domain/entity/Tracking.entity';
-import { randomUUID } from 'crypto';
-import { partialAssign } from 'pkg-shared';
+import { Tracking } from '@Core/domain/entity/Tracking.entity'
+import { partialAssign } from 'pkg-shared'
 
 export class CoreTrackingModel {
-  _id: any;
-  courier: string;
-  trackingNumber: string;
-  service: string;
-  zipCode: string;
-  orderNo?: string;
-  notificationPlatform?: string[];
-  recipientNotification?: string;
-  recipient?: string;
-  phone: string;
-  email?: string;
-  street?: string;
-  city?: string;
-  synced: boolean;
+  _id?: any
+  courier!: string
+  trackingNumber!: string
+  service!: string
+  zipCode!: string
+  orderNo?: string
+  notificationPlatform?: string[]
+  recipientNotification?: string
+  recipient!: string
+  phone!: string
+  email!: string
+  street!: string
+  city!: string
+  synced!: boolean
 
   static toEntity(model: CoreTrackingModel): Tracking {
     return partialAssign(new Tracking(), {
@@ -32,13 +31,12 @@ export class CoreTrackingModel {
       email: model.email,
       street: model.street,
       city: model.city,
-      synced: model.synced,
-    });
+      synced: model.synced
+    })
   }
 
   static fromEntity(tracking: Tracking): CoreTrackingModel {
     return partialAssign(new this(), {
-      _id: randomUUID,
       courier: tracking.courier,
       trackingNumber: tracking.trackingNumber,
       service: tracking.service,
@@ -51,7 +49,7 @@ export class CoreTrackingModel {
       email: tracking.email,
       street: tracking.street,
       city: tracking.city,
-      synced: tracking.synced,
-    });
+      synced: tracking.synced
+    })
   }
 }

@@ -1,4 +1,4 @@
 export type CarrierSyncDhlTrackingType = {
-  trackingNumber: string;
-  service: string;
-};
+  trackingNumber: string
+  service: string
+}

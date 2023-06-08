@@ -1,10 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsString } from 'class-validator'
 
 export class CarrierApiSyncTrackingDto {
   @IsString()
-  courier: string;
+  courier: string
   @IsString()
-  trackingNumber: string;
+  trackingNumber: string
   @IsString()
-  service: string;
+  service: string
 }
