@@ -1,18 +1,18 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator'
 
 export class DhlTrackingEventDto {
   @IsString()
-  event: string;
+  event: string
   @IsString()
-  event_id: string;
+  event_id: string
   @IsString()
-  timestamp: string;
+  timestamp: string
   @IsString()
-  courier: string;
+  courier: string
   @IsString()
-  tracking_number: string;
+  tracking_number: string
+  @IsOptional()
+  language: string
   @IsString()
-  language: string;
-  @IsString()
-  tracking_link: string;
+  tracking_link: string
 }

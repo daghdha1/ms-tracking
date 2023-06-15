@@ -1,18 +1,18 @@
-import { IsString } from 'class-validator';
+import { IsString } from 'class-validator'
 
 export class GlsTrackingEventDto {
   @IsString()
-  event: string;
+  event: string
   @IsString()
-  eventId: string;
+  eventId: string
   @IsString()
-  timestamp: string;
+  timestamp: string
   @IsString()
-  courier: string;
+  courier: string
   @IsString()
-  trackingNumber: string;
+  trackingNumber: string
   @IsString()
-  language: string;
+  language: string
   @IsString()
-  trackingLink: string;
+  trackingLink: string
 }

@@ -1,5 +1,5 @@
 export class DhlHookReportingDto {
-  leadTimeDoorToDoor: number;
-  leadTimeQualifiedAttempt: number;
-  leadTimeEndToEnd: number;
+  leadTimeDoorToDoor: number
+  leadTimeQualifiedAttempt: number
+  leadTimeEndToEnd: number
 }
