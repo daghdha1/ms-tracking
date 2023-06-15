@@ -16,9 +16,9 @@ export class CoreCreateTrackingService {
     private readonly dbTrackRepo: CoreDbTrackingRepository
   ) {}
 
-  public async run(dto: CoreCreateTrackingDto): Promise<void> {
+  public async run(dto: CoreCreateTrackingDto): Promise<string> {
     // Check tracking params
-    const areValid: boolean = await this.areRequiredFieldsValid(dto)
+    const areValid: boolean = this.areRequiredFieldsValid(dto)
     if (!areValid) throw new CoreException('Invalid Request', null, null, 400)
 
     // Create domain entity
@@ -39,9 +39,10 @@ export class CoreCreateTrackingService {
     // Save tracking
     if (isSynced) tracking.synced = true
     await this.dbTrackRepo.saveTracking(tracking)
+    return 'Tracking has been created'
   }
 
-  private async areRequiredFieldsValid(payload: CoreCreateTrackingDto): Promise<boolean> {
+  private areRequiredFieldsValid(payload: CoreCreateTrackingDto): boolean {
     const requiredFields: string[] = ['courier', 'tracking_number', 'zip_code', 'mobile']
 
     for (const key in payload) {

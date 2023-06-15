@@ -7,12 +7,14 @@ import { CoreDbMongoRepository } from './infrastructure/persistence/database/mon
 import { CoreDbMysqlRepository } from './infrastructure/persistence/database/mysql/repository/CoreDbMysql.repository'
 import { CoreCreateTrackingService } from './application/service/CoreCreateTracking.service'
 import { CoreGetTrackingService } from './application/service/CoreGetTracking.service'
+import { CoreApiHttpRepository } from './infrastructure/persistence/http/repository/CoreApiHttp.repository'
 
 @Module({
   imports: [forwardRef(() => CarrierModule)],
   controllers: [CoreTrackingController],
   providers: [
     CoreCreateTrackingService,
+    CoreApiHttpRepository,
     {
       provide: CoreDbConfigRepository,
       useClass: CoreDbMysqlRepository

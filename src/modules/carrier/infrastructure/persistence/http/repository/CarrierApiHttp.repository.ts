@@ -1,7 +1,6 @@
 import { DhlTracking } from '@Carrier/domain/entity/DhlTracking.entity'
 import { GlsTracking } from '@Carrier/domain/entity/GlsTracking.entity'
 import { CarrierApiRepository } from '@Carrier/domain/repository/CarrierApi.repository'
-import fetch from 'node-fetch'
 import { DhlTrackingModel } from '../model/DhlTracking.model'
 import { GlsTrackingModel } from '../model/GlsTracking.model'
 
@@ -19,7 +18,7 @@ export class CarrierApiHttpRepository implements CarrierApiRepository {
     const uri =
       `https://api-eu.dhl.com/track/shipments?` +
       new URLSearchParams(`trackingNumber=${tracking.tracking_number}&service=${tracking.service}`)
-    const response: any = await fetch(uri, options)
+    //const response: any = await fetch(uri, options)
     return true // fake response from carrier
   }
 
@@ -36,7 +35,7 @@ export class CarrierApiHttpRepository implements CarrierApiRepository {
     const uri =
       `https://api-eu.gls.com/track/shipments?` +
       new URLSearchParams(`trackingNumber=${tracking.tracking_number}&service=${tracking.service}`)
-    const response: any = await fetch(uri, options)
+    //const response: any = await fetch(uri, options)
     return true // fake response from carrier
   }
 }

@@ -29,6 +29,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
+    "node-fetch": "^2.6.11",
     "pkg-shared": "github:daghdha1/pkg-shared",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^4.1.3",
